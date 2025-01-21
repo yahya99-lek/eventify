@@ -4,7 +4,6 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main>
-      <Button variant="destructive" className="px-10">Click me</Button>
     </main>
   )
 }
