@@ -1,18 +1,20 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'; // Use clerkMiddleware instead of authMiddleware
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-export default clerkMiddleware({
-  publicRoutes: [
-    '/', 
-    '/events/:id',
-    '/api/webhook/clerk',
-    '/api/webhook/stripe',
-    '/api/uploadthing'
-  ],
-  ignoredRoutes: [
-    '/api/webhook/clerk',
-    '/api/webhook/stripe',
-    '/api/uploadthing'
-  ]
+// Create a route matcher to define public routes
+const isPublicRoute = createRouteMatcher([
+  '/', // Public homepage
+  '/events/:id', // Public events
+  '/api/webhook/clerk', // Public Clerk webhook
+  '/api/webhook/stripe', // Public Stripe webhook
+  '/api/uploadthing', // Public upload endpoint
+]);
+
+// Apply clerkMiddleware with the route matcher
+export default clerkMiddleware(async (auth, request) => {
+  // If the route is not public, protect it with Clerk's authentication
+  if (!isPublicRoute(request)) {
+    await auth.protect();
+  }
 });
 export const config = {
   matcher: [
