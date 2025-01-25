@@ -18,6 +18,7 @@ export async function POST(req: Request) {
 
   // Get headers
   const headerPayload = await headers();
+  console.log("Received headers:", headerPayload);
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");
@@ -28,9 +29,10 @@ export async function POST(req: Request) {
       status: 400,
     });
   }
-
+  console.log("Received POST request to /api/webhooks");
   // Get body
   const payload = await req.json();
+  console.log("Received payload:", payload);
   const body = JSON.stringify(payload);
 
   let evt: WebhookEvent;
