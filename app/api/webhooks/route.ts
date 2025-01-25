@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET;
-
+  console.log(SIGNING_SECRET);
   if (!SIGNING_SECRET) {
     throw new Error(
       "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local"
@@ -53,6 +53,8 @@ export async function POST(req: Request) {
   // For this guide, log payload to console
   const { id } = evt.data;
   const eventType = evt.type;
+  console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
+  console.log('Webhook payload:', body)
 
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } =
