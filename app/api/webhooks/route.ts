@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 // POST handler for incoming webhooks
 export async function POST(req: Request) {
-  // Fetch the signing secret from environment variables
+  // Fetch the signing secret from environment variables, you can find this key in clerk dashboard
   const SIGNING_SECRET = process.env.SIGNING_SECRET;
 
   // Ensure the signing secret exists, otherwise throw an error
