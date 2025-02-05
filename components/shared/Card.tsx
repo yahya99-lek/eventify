@@ -16,7 +16,6 @@ type CardProps = {
 const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
     const { userId } = await auth();
     const isEventCreator = userId === event.organizer?.clerkId.toString();
-    console.log(userId);
 
     return (
         <div className="group relative flex min-h-[380px] w-full max-w-[400px]
