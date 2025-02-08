@@ -161,8 +161,14 @@ export async function getEventsByUser({
 }: GetEventsByUserParams) {
   try {
     await connectToDatabase();
+    const user = await User.findOne({ clerkId: userId });
 
-    const conditions = { organizer: userId };
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Use the user's `_id` (which is an ObjectId) as the organizer
+    const conditions = { organizer: user._id };
     const skipAmount = (page - 1) * limit;
 
     const eventsQuery = Event.find(conditions)

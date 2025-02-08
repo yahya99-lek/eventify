@@ -45,13 +45,13 @@ const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
             )}
 
             {/* Event Details */}
-            <Link href={`/events/${event._id}`} className="relative flex flex-col gap-3 p-5 md:gap-4 z-10 bg-white">
+            <div className="relative flex flex-col gap-3 p-5 md:gap-4 z-10 bg-white">
                 {!hidePrice && (
                     <div className="flex gap-2">
                         <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-600">
                             {event.isFree ? 'Free' : `$${event.price}`}
                         </span>
-                        <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500">
+                        <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
                             {event?.category?.name}
                         </p>
                     </div>
@@ -60,10 +60,12 @@ const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
                 <p className="p-medium-16 p-medium-18 text-grey-500">
                     {formatDateTime(event.startDateTime).dateTime}
                 </p>
+                <Link href={`/events/${event._id}`}>
+                    <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
+                        {event.title}
+                    </p>
+                </Link>
 
-                <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
-                    {event.title}
-                </p>
 
                 {/* Organizer Name & Order Link */}
                 <div className="flex justify-between items-center w-full">
@@ -78,7 +80,7 @@ const Card = async ({ event, hasOrderLink, hidePrice }: CardProps) => {
                         </Link>
                     )}
                 </div>
-            </Link>
+            </div>
         </div>
     )
 }
