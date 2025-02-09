@@ -1,6 +1,6 @@
 import React from 'react'
 import { SearchParamProps } from '@/types'
-import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.action'
+import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions'
 import Image from 'next/image';
 import { formatDateTime } from '@/lib/utils';
 import Collection from '@/components/shared/Collection';

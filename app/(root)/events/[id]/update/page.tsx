@@ -1,5 +1,5 @@
 import EventForm from "@/components/shared/EventForm";
-import { getEventById } from "@/lib/actions/event.action";
+import { getEventById } from "@/lib/actions/event.actions";
 import { UpdateEventParams } from "@/types";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import React from "react";

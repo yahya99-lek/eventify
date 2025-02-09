@@ -28,7 +28,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useUploadThing } from "@/lib/uploadthing";
 import { updateUser } from "@/lib/actions/user.actions";
 import { handleError } from "@/lib/utils";
-import { createEvent, updateEvent } from "@/lib/actions/event.action";
+import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import { useRouter } from "next/navigation";
 import { IEvent } from "@/lib/database/models/event.model";
 
