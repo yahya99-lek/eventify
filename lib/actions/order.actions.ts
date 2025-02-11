@@ -1,7 +1,10 @@
 "use server";
 
-import { CheckoutOrderParams } from "@/types";
+import { CheckoutOrderParams, CreateOrderParams } from "@/types";
 import { redirect } from "next/navigation";
+import { connectToDatabase } from "../database";
+import Order from "../database/models/order.model";
+import { handleError } from "../utils";
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -29,14 +32,27 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
         buyerId: order.buyerId,
       },
       mode: "payment",
-      success_url: `${siteUrl}/profile`, 
-      cancel_url: `${siteUrl}/`, 
+      success_url: `${siteUrl}/profile`,
+      cancel_url: `${siteUrl}/`,
     });
     redirect(session.url); // redirect to the session URL
-
   } catch (error) {
     console.error("Stripe Checkout Error:", error);
     throw error;
   }
 };
 
+export const createOrder = async (order: CreateOrderParams) => {
+  try {
+    await connectToDatabase();
+
+    const newOrder = await Order.create({
+      ...order,
+      event: order.eventId,
+      buyer: order.buyerId,
+    });
+    return JSON.stringify(newOrder);
+  } catch (error) {
+    handleError(error);
+  }
+};
