@@ -1,13 +1,18 @@
 import Collection from '@/components/shared/Collection'
 import { Button } from '@/components/ui/button'
 import { getEventsByUser } from '@/lib/actions/event.actions'
+import { getOrdersByUser } from '@/lib/actions/order.actions'
+import { IOrder } from '@/lib/database/models/order.model'
 import { auth } from '@clerk/nextjs/server'
 import Link from 'next/link'
 import React from 'react'
 
 const profilePage = async () => {
     const { userId } = await auth();
-
+    // Fetches the first page of orders for a specific user and extracts the associated events.
+    const orders = await getOrdersByUser({ userId, page: 1 })
+    /*Extracts the events from the retrieved orders. If no orders are found, returns an empty array.*/
+    const orderdEvents = orders?.data.map((order: IOrder) => order.event) || [];
     const organizedEvents = await getEventsByUser({ userId: userId ?? "", page: 1 });
     return (
         <>
@@ -23,9 +28,9 @@ const profilePage = async () => {
                 </div>
             </section>
 
-            {/* <section className="wrapper my-8">
+            <section className="wrapper my-8">
                 <Collection
-                    data={ }
+                    data={orderdEvents}
                     emptyTitle="No event tickets purchased yet"
                     emptyStateSubText="No Worries- olenty of exciting events to explore!"
                     collectionType="My_Tickets"
@@ -34,7 +39,7 @@ const profilePage = async () => {
                     urlParamName='ordersPage'
                     totalPages={2}
                 />
-            </section> */}
+            </section>
 
             { /* Events Organized */}
             <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
