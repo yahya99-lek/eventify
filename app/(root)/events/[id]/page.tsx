@@ -1,3 +1,4 @@
+export const runtime = 'nodejs';
 import React from 'react'
 import { SearchParamProps } from '@/types'
 import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions'

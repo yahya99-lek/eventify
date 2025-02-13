@@ -67,7 +67,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
           <Search />
           <CategoryFilter />
         </div>
-
+    
         <Collection
           data={events?.data}
           emptyTitle="No events Found"
