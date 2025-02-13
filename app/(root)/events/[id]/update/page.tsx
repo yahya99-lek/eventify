@@ -1,6 +1,5 @@
 import EventForm from "@/components/shared/EventForm";
 import { getEventById } from "@/lib/actions/event.actions";
-import { UpdateEventParams } from "@/types";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
@@ -10,7 +9,7 @@ type UpdateEventProps = {
   }
 }
 
-export default async function UpdateEvent({ params }: UpdateEventProps) {
+export default async function UpdateEvent({ params }: any) {
   const { userId } = await auth();
   const local = await params;
   const { id } = local;

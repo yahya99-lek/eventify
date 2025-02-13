@@ -7,7 +7,7 @@ import { formatDateTime } from '@/lib/utils';
 import Collection from '@/components/shared/Collection';
 import CheckoutButton from '@/components/shared/CheckoutButton';
 
-const EventDetails = async ({ params, searchParams }: SearchParamProps) => {
+const EventDetails = async ({ params, searchParams }: any) => {
     const local = await params;
     const { id } = local;
     const localSearchParams = await searchParams;
