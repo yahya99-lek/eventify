@@ -8,16 +8,19 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home({ searchParams }: SearchParamProps) {
-  const page = Number(searchParams?.page) || 1;
-  const searchText = (searchParams?.query as string) || "";
-  const category = (searchParams?.category as string) || "";
-  
+  const local = await searchParams;
+  const page = Number(local?.page) || 1;
+  const searchText = (local?.query as string) || "";
+  const category = (local?.category as string) || "";
+
+  // Fetch events using the resolved searchParams
   const events = await getAllEvents({
     query: searchText,
     category: category,
     page: page,
     limit: 6,
-  })
+  });
+
   return (
     <>
       <section

@@ -10,8 +10,10 @@ type UpdateEventProps = {
   }
 }
 
-export default async function UpdateEvent({ params: { id } }: UpdateEventProps) {
+export default async function UpdateEvent({ params }: UpdateEventProps) {
   const { userId } = await auth();
+  const local = await params;
+  const { id } = local;
   const event = await getEventById(id)
   return (
     <>

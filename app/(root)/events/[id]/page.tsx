@@ -6,12 +6,16 @@ import { formatDateTime } from '@/lib/utils';
 import Collection from '@/components/shared/Collection';
 import CheckoutButton from '@/components/shared/CheckoutButton';
 
-const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) => {
+const EventDetails = async ({ params, searchParams }: SearchParamProps) => {
+    const local = await params;
+    const { id } = local;
+    const localSearchParams = await searchParams;
+
     const event = await getEventById(id);
     const relatedEvents = await getRelatedEventsByCategory({
         categoryId: event.category._id,
         eventId: event._id,
-        page: searchParams.page as string
+        page: localSearchParams.page as string
     }
     )
 
