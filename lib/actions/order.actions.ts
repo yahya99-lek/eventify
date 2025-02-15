@@ -18,7 +18,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
   const price = order.isFree ? 0 : Number(order.price) * 100;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   try {
     // Create Checkout Sessions from body params.
