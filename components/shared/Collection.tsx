@@ -15,7 +15,7 @@ type CollectionProps = {
 }
 
 const Collection = ({
-    data,
+    data = [], // Ensure data has a default value
     emptyTitle,
     emptyStateSubText,
     collectionType,
@@ -23,30 +23,29 @@ const Collection = ({
     page,
     totalPages,
     urlParamName,
-
 }: CollectionProps) => {
     return (
         <>
-            {data.length > 0 ? (
+            {data && data.length > 0 ? ( // Ensure data is not null or undefined
                 <div className='flex flex-col items-center gap-10'>
                     <ul className="grid w-full grid-cols-1 gap-5 
                     sm:grid-cols-2 lg:grid-cols-3 xl:gap-10">
                         {data.map((event) => {
+                            if (!event || !event._id) return null; // Skip invalid events
+
                             const hasOrderLink = collectionType === 'Events_Organized';
                             const hidePrice = collectionType === 'My_Tickets';
 
                             return (
                                 <li key={event._id} className="flex justify-center">
                                     <Card event={event} hasOrderLink={hasOrderLink} hidePrice={hidePrice} />
-
                                 </li>
-                            )
+                            );
                         })}
                     </ul>
 
                     {(totalPages ?? 0) > 1 && (
-                        <Pagination urlParamName={urlParamName} page={page}
-                            totalPages={totalPages} />
+                        <Pagination urlParamName={urlParamName} page={page} totalPages={totalPages} />
                     )}
                 </div>
             ) : (
@@ -57,7 +56,8 @@ const Collection = ({
                 </div>
             )}
         </>
-    )
-}
+    );
+};
 
-export default Collection
+export default Collection;
+

@@ -10,8 +10,9 @@ import React from 'react'
 
 const profilePage = async ({ searchParams }: SearchParamProps) => {
     const { userId } = await auth();
-    const ordersPage = Number(searchParams?.ordersPage) || 1;
-    const eventsPage = Number(searchParams?.eventsPage) || 1;
+    const localSearchParams = await searchParams;
+    const ordersPage = Number(localSearchParams?.ordersPage) || 1;
+    const eventsPage = Number(localSearchParams?.eventsPage) || 1;
     const orders = await getOrdersByUser({ userId, page: ordersPage })
 
     /*Extracts the events from the retrieved orders. If no orders are found, returns an empty array.*/
